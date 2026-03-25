@@ -1,0 +1,1121 @@
+/* ============================================================
+   CampusPe – Global Stylesheet
+   Fonts  : Inter (body) + Poppins (headings) via Google Fonts
+   Depends: Bootstrap 5.3.3, Bootstrap Icons 1.11.3
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap');
+
+/* ── CSS Custom Properties ─────────────────────────────────── */
+:root {
+    /* Brand palette */
+    --cp-navy-dark:   #1a1a2e;
+    --cp-navy-mid:    #16213e;
+    --cp-navy-light:  #0f3460;
+    --cp-blue:        #0d6efd;
+    --cp-blue-dark:   #0a58ca;
+    --cp-purple:      #6610f2;
+
+    /* Semantic */
+    --cp-success:     #198754;
+    --cp-warning:     #f59e0b;
+    --cp-danger:      #dc3545;
+    --cp-info:        #0dcaf0;
+
+    /* Neutrals */
+    --cp-text:        #212529;
+    --cp-muted:       #6c757d;
+    --cp-border:      #dee2e6;
+    --cp-surface:     #f8f9fa;
+    --cp-bg:          #f0f4f8;
+    --cp-white:       rgba(255, 255, 255, 0.97);
+
+    /* Gradients */
+    --cp-grad-bg:     linear-gradient(135deg, var(--cp-navy-dark) 0%, var(--cp-navy-mid) 50%, var(--cp-navy-light) 100%);
+    --cp-grad-brand:  linear-gradient(135deg, var(--cp-blue), var(--cp-blue-dark));
+    --cp-grad-avatar: linear-gradient(135deg, var(--cp-blue), var(--cp-purple));
+    --cp-grad-nav:    linear-gradient(135deg, var(--cp-navy-dark) 0%, var(--cp-navy-light) 100%);
+
+    /* Shadows */
+    --cp-shadow-card: 0 20px 60px rgba(0, 0, 0, 0.4);
+    --cp-shadow-btn:  0 4px 15px rgba(13, 110, 253, 0.35);
+    --cp-shadow-btn-hover: 0 8px 25px rgba(13, 110, 253, 0.5);
+    --cp-shadow-sm:   0 2px 12px rgba(0, 0, 0, 0.07);
+    --cp-shadow-md:   0 8px 24px rgba(0, 0, 0, 0.12);
+
+    /* Radii */
+    --cp-radius-card: 16px;
+    --cp-radius-btn:  8px;
+    --cp-radius-input: 8px;
+    --cp-radius-icon: 14px;
+
+    /* Transitions */
+    --cp-transition-fast:   0.15s ease;
+    --cp-transition-normal: 0.2s ease;
+    --cp-transition-slow:   0.3s ease;
+}
+
+/* ── Base ───────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--cp-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6,
+.fw-bold, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'Poppins', 'Inter', sans-serif;
+}
+
+/* ── Auth pages — gradient background ──────────────────────── */
+body.cp-auth-bg {
+    background: var(--cp-grad-bg);
+    min-height: 100vh;
+}
+
+/* ── Dashboard page — light background ─────────────────────── */
+body.cp-dash-bg {
+    background-color: var(--cp-bg);
+    min-height: 100vh;
+}
+
+/* ── Auth card (login / register / forgot / reset) ──────────── */
+.cp-card {
+    border: none;
+    border-radius: var(--cp-radius-card);
+    background: var(--cp-white);
+    box-shadow: var(--cp-shadow-card);
+    backdrop-filter: blur(10px);
+    transition: box-shadow var(--cp-transition-normal);
+}
+
+/* ── Brand logo badge ───────────────────────────────────────── */
+.cp-brand-logo {
+    width: 56px;
+    height: 56px;
+    background: var(--cp-grad-brand);
+    border-radius: var(--cp-radius-icon);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    box-shadow: 0 4px 15px rgba(13, 110, 253, 0.4);
+    transition: transform var(--cp-transition-fast), box-shadow var(--cp-transition-fast);
+}
+
+.cp-brand-logo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(13, 110, 253, 0.5);
+}
+
+/* ── Icon badge (circular — forgot / reset) ─────────────────── */
+.cp-icon-badge {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #e8f0fe, #d0e2ff);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    transition: transform var(--cp-transition-fast);
+}
+
+.cp-icon-badge:hover {
+    transform: scale(1.05);
+}
+
+/* ── Success badge ──────────────────────────────────────────── */
+.cp-success-badge {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    animation: cp-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes cp-pop {
+    0%   { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1);   opacity: 1; }
+}
+
+/* ── Form labels ────────────────────────────────────────────── */
+.form-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--cp-text);
+    margin-bottom: 6px;
+}
+
+/* ── Input group ────────────────────────────────────────────── */
+.input-group-text {
+    border-radius: var(--cp-radius-input) 0 0 var(--cp-radius-input);
+    background-color: var(--cp-surface);
+    border: 1.5px solid var(--cp-border);
+    border-right: none;
+    color: var(--cp-muted);
+    transition: border-color var(--cp-transition-normal), color var(--cp-transition-normal);
+}
+
+.form-control {
+    padding: 10px 14px;
+    border: 1.5px solid var(--cp-border);
+    font-size: 0.9rem;
+    font-family: 'Inter', sans-serif;
+    transition: border-color var(--cp-transition-normal), box-shadow var(--cp-transition-normal);
+}
+
+/* Standalone input (login page) */
+.form-control:not(.input-group .form-control) {
+    border-radius: var(--cp-radius-input);
+}
+
+/* Input inside group */
+.input-group .form-control {
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+}
+
+/* Last child in group (no toggle btn) */
+.input-group .form-control:last-child {
+    border-right: 1.5px solid var(--cp-border);
+    border-radius: 0 var(--cp-radius-input) var(--cp-radius-input) 0;
+}
+
+.form-control:focus {
+    border-color: var(--cp-blue);
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+    outline: none;
+}
+
+/* Focus-within: highlight icon + border together */
+.input-group:focus-within .input-group-text {
+    border-color: var(--cp-blue);
+    color: var(--cp-blue);
+}
+
+.input-group:focus-within .form-control {
+    border-color: var(--cp-blue);
+}
+
+.input-group:focus-within .cp-toggle-btn {
+    border-color: var(--cp-blue);
+    color: var(--cp-blue);
+}
+
+/* ── Password visibility toggle button ──────────────────────── */
+.cp-toggle-btn {
+    border-radius: 0 var(--cp-radius-input) var(--cp-radius-input) 0;
+    border: 1.5px solid var(--cp-border);
+    border-left: none;
+    background: var(--cp-surface);
+    color: var(--cp-muted);
+    transition: border-color var(--cp-transition-normal), color var(--cp-transition-normal);
+    padding: 0 12px;
+}
+
+.cp-toggle-btn:hover {
+    color: var(--cp-blue);
+    background: var(--cp-surface);
+}
+
+/* ── Validation states ──────────────────────────────────────── */
+.input-group.is-valid .input-group-text,
+.input-group.is-valid .cp-toggle-btn {
+    border-color: var(--cp-success);
+    color: var(--cp-success);
+}
+
+.input-group.is-valid .form-control {
+    border-color: var(--cp-success);
+    background-image: none;
+}
+
+.input-group.is-invalid .input-group-text,
+.input-group.is-invalid .cp-toggle-btn {
+    border-color: var(--cp-danger);
+    color: var(--cp-danger);
+}
+
+.input-group.is-invalid .form-control {
+    border-color: var(--cp-danger);
+    background-image: none;
+}
+
+.valid-feedback,
+.invalid-feedback {
+    font-size: 0.78rem;
+    margin-top: 5px;
+    display: none;
+}
+
+.input-group.is-valid   ~ .valid-feedback   { display: block; }
+.input-group.is-invalid ~ .invalid-feedback { display: block; }
+
+/* ── Primary CTA button ─────────────────────────────────────── */
+.cp-btn-primary {
+    background: var(--cp-grad-brand);
+    border: none;
+    border-radius: var(--cp-radius-btn);
+    padding: 11px 20px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.4px;
+    color: #fff;
+    box-shadow: var(--cp-shadow-btn);
+    transition:
+        transform var(--cp-transition-fast),
+        box-shadow var(--cp-transition-fast),
+        filter var(--cp-transition-fast);
+    cursor: pointer;
+}
+
+.cp-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--cp-shadow-btn-hover);
+    filter: brightness(1.08);
+    color: #fff;
+}
+
+.cp-btn-primary:active {
+    transform: translateY(0);
+    filter: brightness(0.97);
+}
+
+.cp-btn-primary:focus-visible {
+    outline: 3px solid rgba(13, 110, 253, 0.4);
+    outline-offset: 2px;
+}
+
+/* ── Divider ────────────────────────────────────────────────── */
+.cp-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #adb5bd;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.cp-divider::before,
+.cp-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--cp-border);
+}
+
+/* ── Links ──────────────────────────────────────────────────── */
+a {
+    color: var(--cp-blue);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--cp-transition-fast), text-decoration var(--cp-transition-fast);
+}
+
+a:hover {
+    color: var(--cp-blue-dark);
+    text-decoration: underline;
+}
+
+.cp-back-link {
+    font-size: 0.85rem;
+    color: var(--cp-muted);
+    font-weight: 500;
+    transition: color var(--cp-transition-fast);
+}
+
+.cp-back-link:hover {
+    color: var(--cp-blue);
+    text-decoration: none;
+}
+
+/* ── Checkbox ───────────────────────────────────────────────── */
+.form-check-input:checked {
+    background-color: var(--cp-blue);
+    border-color: var(--cp-blue);
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+}
+
+/* ── Password strength bar ──────────────────────────────────── */
+.cp-strength-track {
+    height: 4px;
+    border-radius: 4px;
+    background: var(--cp-border);
+    overflow: hidden;
+    margin-top: 8px;
+    display: none;
+}
+
+.cp-strength-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 4px;
+    transition: width var(--cp-transition-slow), background-color var(--cp-transition-slow);
+}
+
+.cp-strength-label {
+    font-size: 0.75rem;
+    font-family: 'Inter', sans-serif;
+    margin-top: 4px;
+    display: none;
+}
+
+/* ── Requirements checklist ─────────────────────────────────── */
+.cp-req-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+    display: none;
+}
+
+.cp-req-list li {
+    font-size: 0.78rem;
+    font-family: 'Inter', sans-serif;
+    color: #adb5bd;
+    margin-bottom: 3px;
+    transition: color var(--cp-transition-normal);
+}
+
+.cp-req-list li.met { color: var(--cp-success); }
+.cp-req-list li i   { margin-right: 5px; }
+
+/* ── Terms text ─────────────────────────────────────────────── */
+.cp-terms-text {
+    font-size: 0.78rem;
+    color: var(--cp-muted);
+    line-height: 1.5;
+}
+
+/* ── Success state ──────────────────────────────────────────── */
+#successState { display: none; }
+
+/* ── Navbar ─────────────────────────────────────────────────── */
+.cp-navbar {
+    background: var(--cp-grad-nav);
+    padding: 0.75rem 1.5rem;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+}
+
+.cp-navbar-brand-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.3px;
+    color: #fff;
+}
+
+.cp-brand-icon {
+    width: 34px;
+    height: 34px;
+    background: var(--cp-grad-brand);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(13, 110, 253, 0.4);
+    transition: transform var(--cp-transition-fast);
+}
+
+.cp-brand-icon:hover { transform: scale(1.08); }
+
+.cp-nav-avatar {
+    width: 34px;
+    height: 34px;
+    background: var(--cp-grad-avatar);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: #fff;
+    cursor: pointer;
+    transition: transform var(--cp-transition-fast), box-shadow var(--cp-transition-fast);
+}
+
+.cp-nav-avatar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.4);
+}
+
+.cp-btn-logout {
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    color: #fff;
+    border-radius: var(--cp-radius-btn);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 5px 14px;
+    transition:
+        background var(--cp-transition-fast),
+        border-color var(--cp-transition-fast);
+}
+
+.cp-btn-logout:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.6);
+    color: #fff;
+}
+
+/* ── Welcome banner ─────────────────────────────────────────── */
+.cp-welcome-banner {
+    background: var(--cp-grad-nav);
+    border-radius: var(--cp-radius-card);
+    color: #fff;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.cp-welcome-banner::after {
+    content: '\F52A';
+    font-family: 'bootstrap-icons';
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    font-size: 9rem;
+    opacity: 0.06;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.cp-badge-pill {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+/* ── Dashboard cards ────────────────────────────────────────── */
+.cp-stat-card,
+.cp-action-card,
+.cp-activity-card,
+.cp-profile-card {
+    border: none;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: var(--cp-shadow-sm);
+    transition: transform var(--cp-transition-normal), box-shadow var(--cp-transition-normal);
+}
+
+.cp-stat-card:hover,
+.cp-action-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--cp-shadow-md);
+}
+
+.cp-action-card {
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.cp-action-card:hover { color: inherit; }
+
+/* ── Stat card internals ────────────────────────────────────── */
+.cp-stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.cp-stat-value {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--cp-navy-dark);
+    line-height: 1.1;
+}
+
+.cp-stat-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    color: var(--cp-muted);
+    font-weight: 500;
+    margin-top: 2px;
+}
+
+.cp-stat-trend {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* ── Action card internals ──────────────────────────────────── */
+.cp-action-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin: 0 auto 12px;
+    transition: transform var(--cp-transition-fast);
+}
+
+.cp-action-card:hover .cp-action-icon {
+    transform: scale(1.1);
+}
+
+/* ── Activity card ──────────────────────────────────────────── */
+.cp-activity-card .card-header {
+    background: transparent;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 1rem 1.25rem 0.75rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--cp-navy-dark);
+}
+
+.cp-activity-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+}
+
+.cp-activity-item {
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid #f8f9fa;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    transition: background var(--cp-transition-fast);
+}
+
+.cp-activity-item:hover { background: #fafbfc; }
+.cp-activity-item:last-child { border-bottom: none; }
+
+.cp-activity-time {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    color: #adb5bd;
+    white-space: nowrap;
+}
+
+/* ── Profile card ───────────────────────────────────────────── */
+.cp-profile-avatar {
+    width: 64px;
+    height: 64px;
+    background: var(--cp-grad-avatar);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 auto;
+    transition: transform var(--cp-transition-fast), box-shadow var(--cp-transition-fast);
+}
+
+.cp-profile-avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(13, 110, 253, 0.35);
+}
+
+/* ── Section title ──────────────────────────────────────────── */
+.cp-section-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #adb5bd;
+    margin-bottom: 12px;
+}
+
+/* ── Progress bars ──────────────────────────────────────────── */
+.progress {
+    height: 6px;
+    border-radius: 4px;
+    background: #f0f0f0;
+}
+
+.progress-bar {
+    border-radius: 4px;
+    transition: width 0.6s ease;
+}
+
+/* ── Smooth page entrance ───────────────────────────────────── */
+@keyframes cp-fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.cp-card,
+.cp-welcome-banner,
+.cp-stat-card,
+.cp-action-card,
+.cp-activity-card,
+.cp-profile-card {
+    animation: cp-fade-up 0.4s ease both;
+}
+
+/* Stagger dashboard cards */
+.cp-stat-card:nth-child(1) { animation-delay: 0.05s; }
+.cp-stat-card:nth-child(2) { animation-delay: 0.10s; }
+.cp-stat-card:nth-child(3) { animation-delay: 0.15s; }
+.cp-stat-card:nth-child(4) { animation-delay: 0.20s; }
+
+/* ── Scrollbar (webkit) ─────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+    background: #ced4da;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: #adb5bd; }
+
+/* ============================================================
+   RESPONSIVE SYSTEM
+   xs  < 576px   — mobile portrait
+   sm  576–767px — mobile landscape / small tablet
+   md  768–991px — tablet
+   lg  992–1199px — laptop
+   xl  ≥ 1200px  — desktop
+   ============================================================ */
+
+/* ── Fluid typography scale ─────────────────────────────────── */
+:root {
+    --cp-fs-base:    1rem;       /* 16px */
+    --cp-fs-sm:      0.9rem;
+    --cp-fs-xs:      0.8rem;
+    --cp-fs-label:   0.85rem;
+    --cp-fs-heading: 1.25rem;   /* h4 equivalent */
+}
+
+/* ── Auth card — fluid width ────────────────────────────────── */
+.cp-auth-wrap {
+    width: 100%;
+    padding: 1rem;
+}
+
+/* ── xl — Desktop (≥ 1200px) ───────────────────────────────── */
+@media (min-width: 1200px) {
+    .cp-card {
+        border-radius: 18px;
+    }
+
+    .cp-navbar {
+        padding: 0.85rem 2rem;
+    }
+
+    .cp-welcome-banner {
+        padding: 2.5rem 2.5rem;
+    }
+
+    .cp-welcome-banner h1 {
+        font-size: 1.5rem;
+    }
+
+    .cp-stat-value {
+        font-size: 1.75rem;
+    }
+
+    .cp-stat-icon {
+        width: 52px;
+        height: 52px;
+        font-size: 1.4rem;
+    }
+
+    .cp-action-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 1.5rem;
+    }
+
+    .cp-profile-avatar {
+        width: 72px;
+        height: 72px;
+        font-size: 1.6rem;
+    }
+}
+
+/* ── lg — Laptop (992px – 1199px) ──────────────────────────── */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .cp-navbar {
+        padding: 0.75rem 1.5rem;
+    }
+
+    .cp-welcome-banner {
+        padding: 1.75rem 2rem;
+    }
+
+    .cp-stat-value {
+        font-size: 1.5rem;
+    }
+
+    .cp-stat-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 1.2rem;
+    }
+
+    .cp-action-icon {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+/* ── md — Tablet (768px – 991px) ───────────────────────────── */
+@media (min-width: 768px) and (max-width: 991px) {
+    .cp-navbar {
+        padding: 0.65rem 1.25rem;
+    }
+
+    .cp-navbar-brand-text {
+        font-size: 1.05rem;
+    }
+
+    .cp-welcome-banner {
+        padding: 1.5rem;
+    }
+
+    .cp-welcome-banner h1 {
+        font-size: 1.15rem;
+    }
+
+    .cp-welcome-banner p {
+        font-size: 0.82rem;
+    }
+
+    .cp-stat-value {
+        font-size: 1.35rem;
+    }
+
+    .cp-stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+
+    .cp-stat-label {
+        font-size: 0.72rem;
+    }
+
+    .cp-stat-trend {
+        font-size: 0.7rem;
+    }
+
+    .cp-action-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 1.2rem;
+    }
+
+    .cp-activity-item {
+        padding: 0.65rem 1rem;
+    }
+
+    .cp-profile-avatar {
+        width: 56px;
+        height: 56px;
+        font-size: 1.3rem;
+    }
+
+    /* Auth card — comfortable tablet width */
+    .cp-card {
+        border-radius: 16px;
+    }
+
+    .form-control {
+        font-size: 0.88rem;
+        padding: 9px 13px;
+    }
+}
+
+/* ── sm — Mobile landscape / small tablet (576px – 767px) ──── */
+@media (min-width: 576px) and (max-width: 767px) {
+    .cp-navbar {
+        padding: 0.6rem 1rem;
+    }
+
+    .cp-navbar-brand-text {
+        font-size: 1rem;
+    }
+
+    .cp-welcome-banner {
+        padding: 1.25rem;
+    }
+
+    .cp-welcome-banner h1 {
+        font-size: 1.1rem;
+    }
+
+    .cp-welcome-banner::after {
+        font-size: 6rem;
+    }
+
+    .cp-stat-value {
+        font-size: 1.25rem;
+    }
+
+    .cp-stat-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+    }
+
+    .cp-stat-label {
+        font-size: 0.7rem;
+    }
+
+    .cp-stat-trend {
+        font-size: 0.68rem;
+    }
+
+    .cp-action-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 1.1rem;
+    }
+
+    .cp-activity-item {
+        padding: 0.6rem 0.9rem;
+        gap: 10px;
+    }
+
+    .cp-activity-time {
+        font-size: 0.68rem;
+    }
+
+    .cp-card {
+        border-radius: 14px;
+    }
+
+    .cp-brand-logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .cp-icon-badge,
+    .cp-success-badge {
+        width: 56px;
+        height: 56px;
+    }
+
+    .form-control {
+        font-size: 0.875rem;
+        padding: 9px 12px;
+    }
+
+    .cp-btn-primary {
+        font-size: 0.875rem;
+        padding: 10px 18px;
+    }
+}
+
+/* ── xs — Mobile portrait (< 576px) ────────────────────────── */
+@media (max-width: 575px) {
+    /* Layout */
+    body.cp-auth-bg {
+        align-items: flex-start;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .cp-card {
+        border-radius: 12px;
+        margin: 0 auto;
+    }
+
+    /* Navbar */
+    .cp-navbar {
+        padding: 0.6rem 1rem;
+    }
+
+    .cp-navbar-brand-text {
+        font-size: 0.95rem;
+    }
+
+    .cp-brand-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .cp-nav-avatar {
+        width: 30px;
+        height: 30px;
+        font-size: 0.72rem;
+    }
+
+    .cp-btn-logout {
+        font-size: 0.75rem;
+        padding: 4px 10px;
+    }
+
+    /* Welcome banner */
+    .cp-welcome-banner {
+        padding: 1.25rem;
+        border-radius: 12px;
+    }
+
+    .cp-welcome-banner h1 {
+        font-size: 1rem;
+    }
+
+    .cp-welcome-banner p {
+        font-size: 0.78rem;
+    }
+
+    .cp-welcome-banner::after {
+        font-size: 5rem;
+        opacity: 0.04;
+    }
+
+    .cp-badge-pill {
+        font-size: 0.7rem;
+        padding: 3px 10px;
+    }
+
+    /* Stat cards */
+    .cp-stat-value {
+        font-size: 1.15rem;
+    }
+
+    .cp-stat-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 0.95rem;
+        border-radius: 10px;
+    }
+
+    .cp-stat-label {
+        font-size: 0.68rem;
+    }
+
+    .cp-stat-trend {
+        font-size: 0.65rem;
+    }
+
+    /* Action cards */
+    .cp-action-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        border-radius: 10px;
+        margin-bottom: 8px;
+    }
+
+    /* Activity */
+    .cp-activity-item {
+        padding: 0.6rem 0.85rem;
+        gap: 8px;
+    }
+
+    .cp-activity-time {
+        font-size: 0.65rem;
+    }
+
+    .cp-activity-card .card-header {
+        padding: 0.75rem 0.85rem 0.6rem;
+        font-size: 0.82rem;
+    }
+
+    /* Profile */
+    .cp-profile-avatar {
+        width: 52px;
+        height: 52px;
+        font-size: 1.2rem;
+    }
+
+    /* Auth forms */
+    .cp-brand-logo {
+        width: 48px;
+        height: 48px;
+    }
+
+    .cp-icon-badge,
+    .cp-success-badge {
+        width: 52px;
+        height: 52px;
+    }
+
+    .form-label {
+        font-size: 0.8rem;
+    }
+
+    .form-control {
+        font-size: 0.85rem;
+        padding: 8px 11px;
+    }
+
+    .input-group-text {
+        padding: 0 10px;
+        font-size: 0.85rem;
+    }
+
+    .cp-toggle-btn {
+        padding: 0 10px;
+        font-size: 0.85rem;
+    }
+
+    .cp-btn-primary {
+        font-size: 0.85rem;
+        padding: 10px 16px;
+    }
+
+    .cp-section-title {
+        font-size: 0.72rem;
+    }
+
+    .cp-req-list li {
+        font-size: 0.72rem;
+    }
+
+    .cp-terms-text {
+        font-size: 0.72rem;
+    }
+
+    .cp-back-link {
+        font-size: 0.8rem;
+    }
+
+    .cp-divider {
+        font-size: 0.75rem;
+    }
+
+    /* Section titles */
+    .cp-section-title {
+        margin-bottom: 8px;
+    }
+
+    /* Progress bars */
+    .progress {
+        height: 5px;
+    }
+}
